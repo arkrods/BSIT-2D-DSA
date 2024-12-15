@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Structures</title>
+    <link rel="stylesheet" href="stylestack.css">
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <div class="logo">Stack, Queues, Trees</div>
+            <button class="hello-btn" onclick="location.href='index.html'">Home</button>        </div>
+    </header>
+
+    <div class="main-container">
+        <div class="sort-options">
+            <button class="sort-button" onclick="showInfix()">Infix to Postfix</button>
+            <button class="sort-button" onclick="showPrefix()">Infix to Prefix</button>
+            <button class="sort-button" onclick="showPostfix()">Postfix Evaluation</button>
+            <button class="sort-button" onclick="showQueues()">Queues</button>
+            <button class="sort-button" onclick="showInorder()">Trees (Inorder)</button>
+            <button class="sort-button" onclick="showPreorder()">Trees (Preorder)</button>
+            <button class="sort-button" onclick="showPostorder()">Trees (Postorder)</button>
+        </div>
+    
+        <div class="content" id="content">
+            <h2>Infix to Postfix</h2>
+            <p>Convert an infix expression to postfix notation using a stack.</p>
+            <pre class="code-infix">
+def infix_to_postfix(expression):
+precedence = {'+': 1, '-': 1, '*': 2, '/': 2, '^': 3}
+stack = []
+result = []
+
+for char in expression:
+    if char.isalnum():
+        result.append(char)
+    elif char == '(':
+        stack.append(char)
+    elif char == ')':
+        while stack and stack[-1] != '(':
+            result.append(stack.pop())
+        stack.pop()
+    else:
+        while stack and precedence.get(char, 0) <= precedence.get(stack[-1], 0):
+            result.append(stack.pop())
+        stack.append(char)
+
+while stack:
+    result.append(stack.pop())
+
+return ''.join(result)
+
+print(infix_to_postfix("(A+B)*C"))
+            </pre>
+            <button class="run-button" onclick="runCode('code-infix')">RUN CODE</button>
+        </div>
+        
+    </div>
+
+    <script>
+        // Hamburger Menu Toggle
+        const hamburger = document.getElementById("hamburger");
+        const menu = document.getElementById("menu");
+
+        hamburger.addEventListener("click", () => {
+            menu.classList.toggle("active");
+        });
+
+        function runCode(className) {
+            const codeBlock = document.querySelector(`.${className}`);
+            const code = codeBlock ? codeBlock.textContent.trim() : '';
+            if (code) {
+                localStorage.setItem('codeToRun', code);
+                window.location.href = 'runcode.html';
+            } else {
+                alert('No code found to run!');
+            }
+        }
+        function showInfix() {
+            const content = document.getElementById('content');
+            content.innerHTML = `
+                <h2>Infix to Postfix</h2>
+                <p>Convert an infix expression to postfix notation using a stack.</p>
+                <pre class="code-infix">
+def infix_to_postfix(expression):
+    precedence = {'+': 1, '-': 1, '*': 2, '/': 2, '^': 3}
+    stack = []
+    result = []
+
+    for char in expression:
+        if char.isalnum():
+            result.append(char)
+        elif char == '(':
+            stack.append(char)
+        elif char == ')':
+            while stack and stack[-1] != '(':
+                result.append(stack.pop())
+            stack.pop()
+        else:
+            while stack and precedence.get(char, 0) <= precedence.get(stack[-1], 0):
+                result.append(stack.pop())
+            stack.append(char)
+
+    while stack:
+        result.append(stack.pop())
+
+    return ''.join(result)
+
+print(infix_to_postfix("(A+B)*C"))
+                </pre>
+                <button class="run-button" onclick="runCode('code-infix')">RUN CODE</button>
+                
+            `;
+        }
+
+        function showPrefix() {
+            const content = document.getElementById('content');
+            content.innerHTML = `
+                <h2>Infix to Prefix</h2>
+                <p>Convert an infix expression to prefix notation using a stack-based method.</p>
+                <pre class="code-prefix">
+def infix_to_prefix(expression):
+    def reverse(expression):
+        return expression[::-1].replace('(','temp').replace(')', '(').replace('temp', ')')
+
+    def infix_to_postfix(expression):
+        precedence = {'+': 1, '-': 1, '*': 2, '/': 2, '^': 3}
+        stack = []
+        result = []
+
+        for char in expression:
+            if char.isalnum():
+                result.append(char)
+            elif char == '(':
+                stack.append(char)
+            elif char == ')':
+                while stack and stack[-1] != '(':
+                    result.append(stack.pop())
+                stack.pop()
+            else:
+                while stack and precedence.get(char, 0) <= precedence.get(stack[-1], 0):
+                    result.append(stack.pop())
+                stack.append(char)
+
+        while stack:
+            result.append(stack.pop())
+
+        return ''.join(result)
+
+    reversed_expr = reverse(expression)
+    postfix = infix_to_postfix(reversed_expr)
+    return reverse(postfix)
+
+print(infix_to_prefix("(A+B)*C"))
+                </pre>
+                <button class="run-button" onclick="runCode('code-prefix')">RUN CODE</button>
+            `;
+        }
+
+        function showPostfix() {
+            const content = document.getElementById('content');
+            content.innerHTML = `
+                <h2>Postfix Evaluation</h2>
+                <p>Evaluate a postfix expression using a stack.</p>
+                <pre class="code-postfix">
+def evaluate_postfix(expression):
+    stack = []
+
+    for char in expression:
+        if char.isdigit():
+            stack.append(int(char))
+        else:
+            b = stack.pop()
+            a = stack.pop()
+            if char == '+':
+                stack.append(a + b)
+            elif char == '-':
+                stack.append(a - b)
+            elif char == '*':
+                stack.append(a * b)
+            elif char == '/':
+                stack.append(a / b)
+
+    return stack[0]
+
+print(evaluate_postfix("23*54*+"))
+                </pre>
+                <button class="run-button" onclick="runCode('code-postfix')">RUN CODE</button>
+            `;
+        }
+
+        function showQueues() {
+            const content = document.getElementById('content');
+            content.innerHTML = `
+                <h2>Queues</h2>
+                <p>Queues are used for managing tasks in a First-In-First-Out (FIFO) order.</p>
+                <pre class="code-queue">
+class Queue:
+    def __init__(self):
+        self.queue = []
+
+    def enqueue(self, item):
+        self.queue.append(item)
+
+    def dequeue(self):
+        if not self.is_empty():
+            return self.queue.pop(0)
+        return None
+
+    def is_empty(self):
+        return len(self.queue) == 0
+
+q = Queue()
+q.enqueue(5)
+q.enqueue(6)
+print(q.dequeue())  
+                </pre>
+                <button class="run-button" onclick="runCode('code-queue')">RUN CODE</button>
+            `;
+        }
+
+        function showInorder() {
+            const content = document.getElementById('content');
+            content.innerHTML = `
+                <h2>Tree Inorder Traversal</h2>
+                <pre class="code-inorder">
+class Node:
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
+
+def inorder_traversal(node):
+    if node:
+        inorder_traversal(node.left)
+        print(node.value, end=' ')
+        inorder_traversal(node.right)
+
+root = Node('1')
+root.left = Node('2')
+root.right = Node('3')
+root.left.left = Node('4')
+root.left.right = Node('5')
+
+inorder_traversal(root)  
+                </pre>
+                <button class="run-button" onclick="runCode('code-inorder')">RUN CODE</button>
+            `;
+        }
+
+        function showPreorder() {
+            const content = document.getElementById('content');
+            content.innerHTML = `
+                <h2>Tree Preorder Traversal</h2>
+                <pre class="code-preorder">
+class Node:
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
+
+def preorder_traversal(node):
+    if node:
+        print(node.value, end=' ')
+        preorder_traversal(node.left)
+        preorder_traversal(node.right)
+
+root = Node('1')
+root.left = Node('2')
+root.right = Node('3')
+root.left.left = Node('4')
+root.left.right = Node('5')
+
+preorder_traversal(root)  
+                </pre>
+                <button class="run-button" onclick="runCode('code-preorder')">RUN CODE</button>
+            `;
+        }
+
+        function showPostorder() {
+            const content = document.getElementById('content');
+            content.innerHTML = `
+                <h2>Tree Postorder Traversal</h2>
+                <pre class="code-postorder">
+class Node:
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
+
+def postorder_traversal(node):
+    if node:
+        postorder_traversal(node.left)
+        postorder_traversal(node.right)
+        print(node.value, end=' ')
+
+root = Node('1')
+root.left = Node('2')
+root.right = Node('3')
+root.left.left = Node('4')
+root.left.right = Node('5')
+
+postorder_traversal(root)  
+                </pre>
+                <button class="run-button" onclick="runCode('code-postorder')">RUN CODE</button>
+            `;
+        }
+    </script>
+</body>
+</html>

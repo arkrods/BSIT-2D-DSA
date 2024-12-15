@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linked List Algorithms</title>
+    <link rel="stylesheet" href="stylesort.css">
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <div class="logo">Linked Lists</div>
+            <button class="hello-btn" onclick="location.href='index.html'">Home</button>        </div>
+    </header>
+
+    <div class="main-container">
+        <div class="sort-options">
+            <button class="sort-button" onclick="showSingleLinkedList()">Single Linked List</button>
+            <button class="sort-button" onclick="showDoubleLinkedList()">Double Linked List</button>
+            <button class="sort-button" onclick="showCircularLinkedList()">Circular Linked List</button>
+        </div>
+    
+        <div class="content" id="content">
+            <h2>Single Linked List</h2>
+            <p>
+                A Single Linked List is a linear data structure where each element (node) points to the next node in the sequence. The last node points to `null`.
+            </p>
+            <p><b>Pseudocode:</b></p>
+            <div class="pseudocode-section">
+                <pre>
+CREATE Node with data and next
+SET head = first node
+SET currentNode = head
+
+WHILE currentNode IS NOT null:
+    PRINT currentNode.data
+    currentNode = currentNode.next
+                </pre>
+            </div>
+            <p><b>Python Code Example:</b></p>
+            <pre class="sort1">
+class Node: 
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+    
+node1 = Node(3)
+node2 = Node(5)
+node3 = Node(13)
+node4 = Node(2)
+
+node1.next = node2
+node2.next = node3
+node3.next = node4
+
+currentNode = node1
+while currentNode:
+    print(currentNode.data, end=" -> ")
+    currentNode = currentNode.next
+print("null")
+            </pre>
+            <button class="run-button" onclick="runCode('sort1')">RUN CODE</button>
+        </div>
+    </div>
+
+    <script>
+        // Hamburger Menu Toggle
+        const hamburger = document.getElementById("hamburger");
+        const menu = document.getElementById("menu");
+
+        hamburger.addEventListener("click", () => {
+            menu.classList.toggle("active");
+        });
+
+        // Function to display Single Linked List content
+        function showSingleLinkedList() {
+            const content = document.getElementById('content');
+            content.innerHTML = `
+                <h2>Single Linked List</h2>
+                <p>
+                    A Single Linked List is a linear data structure where each element (node) points to the next node in the sequence. The last node points to \`null\`.
+                </p>
+                <p><b>Pseudocode:</b></p>
+                <pre>
+CREATE Node with data and next
+SET head = first node
+SET currentNode = head
+
+WHILE currentNode IS NOT null:
+    PRINT currentNode.data
+    currentNode = currentNode.next
+                </pre>
+                <p><b>Python Code Example:</b></p>
+                <pre class="sort1">
+class Node: 
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+    
+node1 = Node(3)
+node2 = Node(5)
+node3 = Node(13)
+node4 = Node(2)
+
+node1.next = node2
+node2.next = node3
+node3.next = node4
+
+currentNode = node1
+while currentNode:
+    print(currentNode.data, end=" -> ")
+    currentNode = currentNode.next
+print("null")
+                </pre>
+                <button class="run-button" onclick="runCode('sort1')">RUN CODE</button>
+            `;
+        }
+
+        // Function to display Double Linked List content
+        function showDoubleLinkedList() {
+            const content = document.getElementById('content');
+            content.innerHTML = `
+                <h2>Double Linked List</h2>
+                <p>
+                    A Double Linked List is a data structure where each node contains references to both the next and previous nodes, allowing traversal in both directions.
+                </p>
+                <p><b>Pseudocode:</b></p>
+                <pre>
+CREATE Node with data, next, and prev
+SET head = first node
+SET tail = last node
+
+FORWARD TRAVERSAL:
+    SET currentNode = head
+    WHILE currentNode IS NOT null:
+        PRINT currentNode.data
+        currentNode = currentNode.next
+
+BACKWARD TRAVERSAL:
+    SET currentNode = tail
+    WHILE currentNode IS NOT null:
+        PRINT currentNode.data
+        currentNode = currentNode.prev
+                </pre>
+                <p><b>Python Code Example:</b></p>
+                <pre class="sort2">
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+        self.prev = None
+    
+node1 = Node(3)
+node2 = Node(5)
+node3 = Node(13)
+node4 = Node(2)
+
+node1.next = node2
+
+node2.prev = node1
+node2.next = node3
+
+node3.prev = node2
+node3.next = node4
+
+node4.prev = node3
+
+print("\\nTraversing forward:")
+currentNode = node1
+while currentNode:
+    print(currentNode.data, end=" -> ")
+    currentNode = currentNode.next
+print("null")
+
+print("\\nTraversing backward:")
+currentNode = node4
+while currentNode:
+    print(currentNode.data, end=" -> ")
+    currentNode = currentNode.prev
+print("null")
+                </pre>
+                <button class="run-button" onclick="runCode('sort2')">RUN CODE</button>
+            `;
+        }
+
+        // Function to display Circular Linked List content
+        function showCircularLinkedList() {
+            const content = document.getElementById('content');
+            content.innerHTML = `
+                <h2>Circular Linked List</h2>
+                <p>
+                    A Circular Linked List is a variation of a linked list where the last node points back to the first node, forming a circle.
+                </p>
+                <p><b>Pseudocode:</b></p>
+                <pre>
+CREATE Node with data and next
+SET head = first node
+SET currentNode = head
+
+DO:
+    PRINT currentNode.data
+    currentNode = currentNode.next
+WHILE currentNode IS NOT head
+                </pre>
+                <p><b>Python Code Example:</b></p>
+                <pre class="sort3">
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+    
+node1 = Node(3)
+node2 = Node(5)
+node3 = Node(13)
+node4 = Node(2)
+
+node1.next = node2
+node2.next = node3
+node3.next = node4
+node4.next = node1
+
+currentNode = node1
+startNode = node1
+print(currentNode.data, end=" -> ") 
+currentNode = currentNode.next 
+
+while currentNode != startNode:
+    print(currentNode.data, end=" -> ")
+    currentNode = currentNode.next
+
+print("...")
+                </pre>
+                <button class="run-button" onclick="runCode('sort3')">RUN CODE</button>
+            `;
+        }
+
+        // Function to run code based on selection
+        function runCode(sortClass) {
+            const sortCodeElement = document.querySelector(`.${sortClass}`);
+            const sortCode = sortCodeElement ? sortCodeElement.textContent.trim() : '';
+            if (sortCode) {
+                localStorage.setItem('codeToRun', sortCode); // Save code to localStorage
+                window.location.href = 'runcode.html'; // Redirect to runcode.html
+            } else {
+                alert('Code not found for the selected example!');
+            }
+        }
+    </script>
+    
+</body>
+</html>

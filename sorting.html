@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorting Algorithm</title>
+    <link rel="stylesheet" href="stylesort.css">
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <div class="logo">Sorting Algorithm</div>
+            <button class="hello-btn" onclick="location.href='index.html'">Home</button>
+        </div>
+    </header>
+    
+    <div class="main-container">
+        <div class="sort-options">
+            <button class="sort-button" onclick="showArrayContent()">Array</button>
+            <button class="sort-button" onclick="showBubbleSortContent()">Bubble Sort</button>
+            <button class="sort-button" onclick="showSelectionSortContent()">Selection Sort</button>
+            <button class="sort-button" onclick="showInsertionSortContent()">Insertion Sort</button>
+            <button class="sort-button" onclick="showCountingSortContent()">Counting Sort</button>
+            <button class="sort-button" onclick="showRadixSortContent()">Radix Sort</button>
+        </div>
+    
+        <div class="content" id="content">
+            <button class="run-button" onclick="runCode('sort1')">RUN CODE</button>
+            <h2>Array</h2>
+            <p>
+                An array is a data structure that contains a group of elements. These elements are typically all of the same type,
+                such as an integer or string. Arrays are used to store multiple values in a single variable instead of declaring
+                separate variables for each value.
+            </p>
+            <p><b>Pseudocode:</b></p>
+            <div class="pseudocode-section">
+                <pre>
+DECLARE arr[5]
+SET arr[0] = 5
+SET arr[1] = 7
+SET arr[2] = 1
+SET arr[3] = 9
+SET arr[4] = 77
+OUTPUT arr
+                </pre>
+            </div>
+            <p><b>Example:</b></p>
+            <pre class="sort1">
+arr = [5, 7, 1, 9, 77, 33]
+print(f"Array: {arr[4]}")</pre>
+        </div>
+    </div>
+
+    <script>
+        const hamburger = document.getElementById("hamburger");
+        const menu = document.getElementById("menu");
+
+        hamburger.addEventListener("click", () => {
+            menu.classList.toggle("active");
+        });
+
+        function showArrayContent() {
+            const content = document.getElementById('content');
+            content.innerHTML = `
+                <h2>Array</h2>
+                <p>
+                    An array is a data structure that contains a group of elements. These elements are typically all of the same type,
+                    such as an integer or string. Arrays are used to store multiple values in a single variable instead of declaring
+                    separate variables for each value.
+                </p>
+                <p><b>Pseudocode:</b></p>
+                <div class="pseudocode-section">
+                    <pre class="pseudocode-section">
+DECLARE arr[5]
+SET arr[0] = 5
+SET arr[1] = 7
+SET arr[2] = 1
+SET arr[3] = 9
+SET arr[4] = 77
+OUTPUT arr
+                    </pre>
+                </div>
+                <p><b>Example:</b></p>
+                <pre class="sort1">
+arr = [5, 7, 1, 9, 77, 33]
+print(f"Array: {arr[4]}")
+                    </pre>
+                <button class="run-button" onclick="runCode('sort1')">RUN CODE</button>
+            `;
+        }
+
+        function showBubbleSortContent() {
+            const content = document.getElementById('content');
+            content.innerHTML = `
+                <h2>Bubble Sort</h2>
+                <p>
+                    Bubble Sort is a simple sorting algorithm that repeatedly steps through the list, compares adjacent elements,
+                    and swaps them if they are in the wrong order. The pass through the list is repeated until the list is sorted.
+                </p>
+                <p><b>Pseudocode:</b></p>
+                <pre>
+START
+    DECLARE my_array = [64, 34, 25, 12, 22, 11, 90, 5]
+    DECLARE n = LENGTH(my_array)
+
+    FOR i FROM 0 TO n-2 DO
+        FOR j FROM 0 TO n-i-2 DO
+            IF my_array[j] > my_array[j+1] THEN
+                SWAP my_array[j] AND my_array[j+1]
+            END IF
+        END FOR
+    END FOR
+
+    PRINT "Sorted array:", my_array
+END
+                </pre>
+                <p><b>Example:</b></p>
+                <pre class="sort2">
+my_array = [64, 34, 25, 12, 22, 11, 90, 5]
+n = len(my_array)
+for i in range(n-1):
+    for j in range(n-i-1):
+        if my_array[j] > my_array[j+1]:
+            my_array[j], my_array[j+1] = my_array[j+1], my_array[j]
+
+print("Sorted array:", my_array)
+                </pre>
+                <button class="run-button" onclick="runCode('sort2')">RUN CODE</button>
+            `;
+        }
+
+        function showSelectionSortContent() {
+            const content = document.getElementById('content');
+            content.innerHTML = `
+                <h2>Selection Sort</h2>
+                <p>
+                    Selection Sort repeatedly finds the smallest element from the unsorted part of the array and places it at the
+                    beginning. This process is repeated for all elements.
+                </p>
+                <p><b>Pseudocode:</b></p>
+                <pre>
+START
+    DECLARE my_array = [64, 34, 25, 5, 22, 11, 90, 12]
+    DECLARE n = LENGTH(my_array)
+
+    FOR i FROM 0 TO n-2 DO
+        DECLARE min_index = i
+                    
+        FOR j FROM i+1 TO n-1 DO
+            IF my_array[j] < my_array[min_index] THEN
+                min_index = j
+            END IF
+        END FOR
+
+        DECLARE min_value = POP(my_array, min_index)
+        INSERT min_value INTO my_array AT i
+    END FOR
+
+    PRINT "Sorted array:", my_array
+END
+                </pre>
+                <p><b>Example:</b></p>
+                <pre class="sort3"> 
+my_array = [64, 34, 25, 5, 22, 11, 90, 12]
+n = len(my_array)
+for i in range(n-1):
+    min_index = i
+    for j in range(i+1, n):
+        if my_array[j] < my_array[min_index]:
+            min_index = j
+    min_value = my_array.pop(min_index)
+    my_array.insert(i, min_value)
+
+print("Sorted array:", my_array)
+                </pre>
+                <button class="run-button" onclick="runCode('sort3')">RUN CODE</button>
+            `;
+        }
+
+        function showInsertionSortContent() {
+            const content = document.getElementById('content');
+            content.innerHTML = `
+                <h2>Insertion Sort</h2>
+                <p>
+                    Insertion Sort works by taking elements from the unsorted part of the array and inserting them in their correct
+                    position in the sorted part.
+                </p>
+                <p><b>Pseudocode:</b></p>
+                <pre>
+START
+    DECLARE my_array = [64, 34, 25, 12, 22, 11, 90, 5]
+    DECLARE n = LENGTH(my_array)
+
+    FOR i FROM 1 TO n-1 DO
+        DECLARE insert_index = i
+        DECLARE current_value = POP(my_array, i)
+
+        FOR j FROM i-1 TO 0 STEP -1 DO
+            IF my_array[j] > current_value THEN
+                insert_index = j
+            END IF
+        END FOR
+
+        INSERT current_value INTO my_array AT insert_index
+    END FOR
+
+    PRINT "Sorted array:", my_array
+END
+                </pre>
+                <p><b>Example:</b></p>
+                <pre class="sort4">
+my_array = [64, 34, 25, 12, 22, 11, 90, 5]
+n = len(my_array)
+for i in range(1, n):
+    insert_index = i
+    current_value = my_array.pop(i)
+    for j in range(i-1, -1, -1):
+        if my_array[j] > current_value:
+            insert_index = j
+    my_array.insert(insert_index, current_value)
+
+print("Sorted array:", my_array)
+                </pre>
+                <button class="run-button" onclick="runCode('sort4')">RUN CODE</button>
+            `;
+        }
+
+        function showCountingSortContent() {
+            const content = document.getElementById('content');
+            content.innerHTML = `
+                <h2>Counting Sort</h2>
+                <p>
+                    Counting Sort is a non-comparison-based sorting algorithm that sorts integers by counting occurrences of each
+                    unique value.
+                </p>
+                <p><b>Pseudocode:</b></p>
+                <pre>
+START
+    FUNCTION countingSort(arr):
+        DECLARE max_val = MAX(arr)
+        DECLARE count = ARRAY OF SIZE (max_val + 1) INITIALIZED TO 0
+
+        WHILE LENGTH(arr) > 0 DO
+            num = POP(arr)
+            count[num] = count[num] + 1
+        END WHILE
+
+        FOR i FROM 0 TO LENGTH(count) - 1 DO
+            WHILE count[i] > 0 DO
+                APPEND i TO arr
+                count[i] = count[i] - 1
+            END WHILE
+        END FOR
+
+        RETURN arr
+    END FUNCTION
+
+    DECLARE unsortedArr = [4, 2, 2, 6, 3, 3, 1, 6, 5, 2, 3]
+    DECLARE sortedArr = countingSort(unsortedArr)
+    PRINT "Sorted array:", sortedArr
+END
+                </pre>
+                <p><b>Example:</b></p>
+                <pre class="sort5">
+def countingSort(arr):
+    max_val = max(arr)
+    count = [0] * (max_val + 1)
+
+    while len(arr) > 0:
+        num = arr.pop(0)
+        count[num] += 1
+
+    for i in range(len(count)):
+        while count[i] > 0:
+            arr.append(i)
+            count[i] -= 1
+
+    return arr
+
+unsortedArr = [4, 2, 2, 6, 3, 3, 1, 6, 5, 2, 3]
+sortedArr = countingSort(unsortedArr)
+print("Sorted array:", sortedArr)
+                </pre>
+                <button class="run-button" onclick="runCode('sort5')">RUN CODE</button>
+            `;
+        }
+
+        function showRadixSortContent() {
+            const content = document.getElementById('content');
+            content.innerHTML = `
+                <h2>Radix Sort</h2>
+                <p>
+                    Radix Sort is a non-comparison-based sorting algorithm that sorts numbers digit by digit from the least
+                    significant digit to the most significant digit.
+                </p>
+                <p><b>Pseudocode:</b></p>
+                <pre>
+START
+    DECLARE myArray = [170, 45, 75, 90, 802, 24, 2, 66]
+    DECLARE radixArray = [[], [], [], [], [], [], [], [], [], []]
+    DECLARE maxVal = MAX(myArray)
+    DECLARE exp = 1
+
+    WHILE maxVal // exp > 0 DO
+        WHILE LENGTH(myArray) > 0 DO
+            val = POP(myArray)
+            radixIndex = (val // exp) % 10
+            APPEND val TO radixArray[radixIndex]
+        END WHILE
+
+        FOR EACH bucket IN radixArray DO
+            WHILE LENGTH(bucket) > 0 DO
+                val = POP(bucket)
+                APPEND val TO myArray
+            END WHILE
+        END FOR
+
+        exp = exp * 10
+    END WHILE
+
+    PRINT "Sorted array:", myArray
+END
+                </pre>
+                <p><b>Example:</b></p>
+                <pre class="sort6">
+myArray = [170, 45, 75, 90, 802, 24, 2, 66]
+print("Original array:", myArray)
+radixArray = [[], [], [], [], [], [], [], [], [], []]
+maxVal = max(myArray)
+exp = 1
+while maxVal // exp > 0:
+    while len(myArray) > 0:
+        val = myArray.pop()
+        radixIndex = (val // exp) % 10
+        radixArray[radixIndex].append(val)
+    for bucket in radixArray:
+        while len(bucket) > 0:
+            val = bucket.pop()
+            myArray.append(val)
+    exp *= 10
+print("Sorted array:", myArray)
+                </pre>
+                <button class="run-button" onclick="runCode('sort6')">RUN CODE</button>
+            `;
+        }
+
+        function runCode(sortClass) {
+            const sortCodeElement = document.querySelector(`.${sortClass}`); 
+            const sortCode = sortCodeElement ? sortCodeElement.textContent.trim() : ''; 
+
+            if (sortCode) {
+                localStorage.setItem('codeToRun', sortCode); 
+                window.location.href = 'runcode.html'; 
+            } else {
+                alert('Code not found for the selected sorting algorithm!');
+            }
+        }
+    </script>
+
+</body>
+</html>

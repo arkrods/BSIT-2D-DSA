@@ -1,0 +1,52 @@
+/* Features Section */
+.features {
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Vertically center cards */
+    gap: 20px;
+    margin: 40px 0;
+    flex-wrap: wrap; /* Allows cards to wrap to new lines if needed */
+    height: 80vh; /* Ensures the container takes up the full viewport height */
+}
+
+.feature-card {
+    background-color: #DAD4B5; /* Light beige background for cards */
+    color: #800000; /* Maroon text */
+    padding: 20px; /* Adjust padding for proper alignment */
+    text-align: center;
+    text-decoration: none;
+    border-radius: 10px;
+    width: 30vw; /* 30% of the viewport width */
+    height: 30vh; /* 30% of the viewport height */
+    display: flex;
+    justify-content: center; /* Centers content horizontally */
+    align-items: center; /* Centers content vertically */
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.feature-card:hover {
+    background-color: #982B1C; /* Maroon background on hover */
+    color: #F2E8C6; /* Light text on hover */
+    transform: scale(1.05); /* Slight scale effect on hover */
+}
+
+.feature-card h2 {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .features {
+        flex-direction: column;
+        align-items: center;
+        height: auto; /* Adjust height for smaller screens */
+    }
+
+    .feature-card {
+        width: 80%; /* Makes the cards wider on smaller screens */
+        max-width: 300px; /* Limits the card size on mobile */
+        height: 40vh; /* Adjusts the height for mobile */
+        margin-bottom: 20px;
+    }
+}

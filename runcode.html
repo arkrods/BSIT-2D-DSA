@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Runner</title>
+    <link rel="stylesheet" href="styleruncode.css">
+
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <div class="logo">BSIT 2D</div>
+            <button class="hello-btn" onclick="location.href='index.html'">Home</button>        </div>
+    </header>
+    
+    <div class="container">
+        <div class="buttons">
+            <button class="run" onclick="runPythonCode()">Run Code</button>
+            <button class="clear" onclick="clearText()">Clear</button>
+        </div>
+        <div class="editor">
+            <textarea id="inputCode" placeholder="Write your Python code here..."></textarea>
+            <div id="outputResult" class="output"></div>
+        </div>
+    </div>
+
+    <!-- Pyodide Script -->
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.22.1/full/pyodide.js"></script>
+    <script>
+        let pyodideReadyPromise = loadPyodide();
+
+        // Load the code from localStorage on page load
+        window.onload = function () {
+            const savedCode = localStorage.getItem('codeToRun'); // Retrieve saved code
+            if (savedCode) {
+                document.getElementById('inputCode').value = savedCode; // Populate textarea
+            }
+        };
+
+        async function runPythonCode() {
+            const inputCode = document.getElementById('inputCode').value;
+            const outputResult = document.getElementById('outputResult');
+            outputResult.textContent = "Running...";
+
+            try {
+                const pyodide = await pyodideReadyPromise;
+
+                pyodide.runPython(`
+import sys
+from js import console
+
+class StdoutRedirect:
+    def __init__(self):
+        self.output = []
+    def write(self, text):
+        self.output.append(text)
+    def flush(self):
+        pass
+    def get_output(self):
+        return "".join(self.output)
+
+sys.stdout = StdoutRedirect()
+sys.stderr = sys.stdout
+                `);
+
+                pyodide.runPython(inputCode);
+
+                const rawOutput = pyodide.runPython("sys.stdout.get_output()");
+                const formattedOutput = rawOutput.replace(/\n/g, "<br>"); // Replace \n with <br>
+                outputResult.innerHTML = formattedOutput || "Code executed successfully. No output."; // Use innerHTML
+            } catch (error) {
+                outputResult.textContent = `Error: ${error.message}`;
+            }
+        }
+
+        function clearText() {
+            // Clear the input code and output result
+            document.getElementById('inputCode').value = '';
+            document.getElementById('outputResult').innerHTML = '';
+        }
+    </script>
+</body>
+</html>

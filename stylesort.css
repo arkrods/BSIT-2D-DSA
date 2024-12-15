@@ -1,0 +1,114 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #F2E8C6; /* Light background */
+    color: #800000; /* Dark maroon for text */
+}
+
+header {
+    background-color: #982B1C; /* Maroon background for header */
+    padding: 20px;
+    text-align: center;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #F2E8C6;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.hello-btn {
+    background-color: #DAD4B5; /* Light beige button */
+    color: #800000; /* Maroon text for the button */
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.hello-btn:hover {
+    background-color: #982B1C; /* Maroon button hover */
+    color: #F2E8C6; /* Light text color on hover */
+}
+
+.main-container {
+    padding: 20px;
+}
+
+.sort-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.sort-button {
+    background-color: #DAD4B5; /* Light beige button */
+    color: #800000; /* Maroon text for buttons */
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.sort-button:hover {
+    background-color: #982B1C; /* Maroon button hover */
+    color: #F2E8C6; /* Light text color on hover */
+}
+
+.content {
+    background-color: #DAD4B5; /* Light beige background for content */
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.run-button {
+    background-color: #982B1C; /* Maroon background for button */
+    color: #F2E8C6; /* Light text color */
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.run-button:hover {
+    background-color: #800000; /* Darker maroon on hover */
+    color: #DAD4B5; /* Light beige text color on hover */
+}
+
+h2 {
+    color: #800000; /* Maroon color for headings */
+    margin-bottom: 15px;
+}
+
+p {
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.bubble-sort-content, .selection-sort-content, .insertion-sort-content, .counting-sort-content, .radix-sort-content {
+    display: none;
+}
+
+ .sort1, .sort2, .sort3, .sort4, .sort5, .sort6 {
+    background-color: #F2E8C6;
+    border: 1px solid #800000;
+    padding: 15px;
+    margin-bottom: 20px;
+    font-family: monospace;
+}
+
+pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
